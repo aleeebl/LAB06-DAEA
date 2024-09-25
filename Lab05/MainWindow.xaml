@@ -1,0 +1,61 @@
+﻿<Window x:Class="Lab05.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab05"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <!-- Definición de filas en el Grid -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Para el título y el botón Crear -->
+            <RowDefinition Height="*"/>
+            <!-- Para el DataGrid -->
+        </Grid.RowDefinitions>
+
+        <!-- Grid para el título y el botón Crear -->
+        <Grid Grid.Row="0" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <!-- Columna para el título, ocupa el espacio disponible -->
+                <ColumnDefinition Width="Auto" />
+                <!-- Columna para el botón, ajusta al contenido -->
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Clientes" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,0" Grid.Column="0"/>
+            <Button Click="Button_Click" Content="LISTAR" Command="{Binding CreateCommand}" Width="100" Grid.Column="1" VerticalAlignment="Center"/>
+        </Grid>
+
+        <!-- DataGrid en la segunda fila del Grid -->
+        <DataGrid x:Name="Gridclientes" AutoGenerateColumns="False" Margin="10" Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding idcliente}" Width="Auto"/>
+                <DataGridTextColumn Header="Nombre Compañía" Binding="{Binding nombrecompañia}" Width="*"/>
+                <DataGridTextColumn Header="Nombre Contacto" Binding="{Binding nombrecontacto}" Width="*"/>
+                <DataGridTextColumn Header="Cargo Contacto" Binding="{Binding cargocontacto}" Width="*"/>
+                <DataGridTextColumn Header="Dirección" Binding="{Binding direccion}" Width="*"/>
+                <DataGridTextColumn Header="Ciudad" Binding="{Binding ciudad}" Width="*"/>
+                <DataGridTextColumn Header="Región" Binding="{Binding region}" Width="*"/>
+                <DataGridTextColumn Header="Código Postal" Binding="{Binding codpostal}" Width="*"/>
+                <DataGridTextColumn Header="País" Binding="{Binding pais}" Width="*"/>
+                <DataGridTextColumn Header="Teléfono" Binding="{Binding telefono}" Width="*"/>
+                <DataGridTextColumn Header="Fax" Binding="{Binding fax}" Width="*"/>
+                <DataGridCheckBoxColumn Header="Habilitado" Binding="{Binding enabled}" Width="Auto"/>
+
+                <!-- Columna de acciones con los botones -->
+                <DataGridTemplateColumn Header="Acciones" Width="SizeToCells">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Click="Button_Click_2" Content="Editar" Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}"/>
+                                <Button Click="Button_Click_1" Content="Eliminar" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+
+</Window>
